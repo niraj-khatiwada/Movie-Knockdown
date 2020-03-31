@@ -1,0 +1,47 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*,
+::before,
+::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h2{
+  color: white;
+  font-family: var(--baseFont);
+}
+
+:root {
+  --baseFont: 'Open Sans', sans-serif;
+
+
+}
+
+body {
+  position: relative;
+}
+
+.logo-img {
+  margin: 1rem;
+  width: 170px;
+}
+
+.container {
+  min-width: 100vw;
+  height: 100vh;
+  background: url('/Image/Hero.jpg') center/cover no-repeat;
+}
+
+.compare {
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+}
+
+.movie .col {
+  text-align: center;
+  width: 25rem;
+  margin: 0 2%;
+}
