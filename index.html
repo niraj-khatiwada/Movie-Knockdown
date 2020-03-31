@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Knockdown</title>
+    <!-- Bulma CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"
+    />
+
     <!-- Bootstrap -->
     <link
       rel="stylesheet"
@@ -19,17 +30,31 @@
       </heading>
       <section class="hero">
         <div class="compare">
-          <form class="movie-search-form">
-            <div class="row movie">
-              <div class="col">
-                <h2>Movie</h2>
+          <div class="row movie">
+            <div class="col">
+              <h2>Movie</h2>
+                <form class="movie-search-form">
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Give a name"
                   id="movie1"
-                />
+                  />
+                </form>
+                <div class="dropdown is-active">
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <a href="#" class="dropdown-item">
+                        Dropdown item
+                      <hr class="dropdown-divider">
+                      <a href="#" class="dropdown-item">
+                        With a divider
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
+
               <div class="col">
                 <h2>Movie</h2>
                 <input
@@ -40,7 +65,6 @@
                 />
               </div>
             </div>
-          </form>
         </div>
       </section>
     </div>

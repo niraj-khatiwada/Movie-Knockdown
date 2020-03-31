@@ -6,36 +6,45 @@ class Movie {
       this.movie2Input = movie2Input
     }
     // this.movie1Input.addEventListener('input', this.fetchData)
-    this.movie1Input.addEventListener('input', this.debounce)
+    this.movie1Input.addEventListener(
+      'input',
+      this.debounce(this.getSearchData)
+    )
   }
-  debounce = () => {
+  debounce = (callback) => {
     this.timerID
-    const onlyLastInput = () => {
+    return (...args) => {
       if (this.timerID) {
         clearTimeout(this.timerID)
       }
-      this.timerID = setTimeout(async () => {
-        const movies = await this.fetchData()
-        movies.then((res) => {
-          console.log('Fetched')
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log("Din't get response from server")
-        })
+      this.timerID = setTimeout(() => {
+        return callback()
       }, 3000)
     }
-    return onlyLastInput()
   }
+
+  getSearchData = async () => {
+    const movies = await this.fetchData()
+    if (!movies.data.Error) {
+      for (let movie of movies.data.Search) {
+        console.log(movie)
+      }
+    }
+    else{
+      console.log(movies.data.Error)
+    }
+  }
+
   fetchData = async () => {
     return await axios
-      .get('http://www.ombapi.com/', {
+      .get('http://www.omdbapi.com/', {
         params: {
           apikey: 'df784551',
           s: this.movie1Input.value,
         },
       })
       .then((res) => {
+        console.log('Connected to OMDB server')
         return res
       })
       .catch((err) => {
