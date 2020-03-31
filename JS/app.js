@@ -1,9 +1,11 @@
 class Movie {
-  constructor(movie1Input, movie2Input, callbacks) {
-    if ((movie1Input, callbacks)) {
+  constructor(movie1Input, movie2Input, dropdownItem, callbacks) {
+    this.movie1Input = movie1Input
+    this.movie2Input = movie2Input
+    this.dropdownItem = dropdownItem
+
+    if (callbacks) {
       this.movieData = callbacks.movieData
-      this.movie1Input = movie1Input
-      this.movie2Input = movie2Input
     }
     // this.movie1Input.addEventListener('input', this.fetchData)
     this.movie1Input.addEventListener(
@@ -19,18 +21,33 @@ class Movie {
       }
       this.timerID = setTimeout(() => {
         return callback()
-      }, 3000)
+      }, 500)
     }
   }
 
   getSearchData = async () => {
     const movies = await this.fetchData()
     if (!movies.data.Error) {
+      this.dropdownItem.classList.toggle('is-active')
       for (let movie of movies.data.Search) {
+        this.dropdownItem.classList.toggle('is-active')
+        const dropdownContent = document.querySelector('.dropdown-content')
+        const dropdown = document.createElement('a')
+        dropdown.className = 'dropdown-item'
+        dropdown.href = '#'
+        dropdown.innerText = movie.Title
+        dropdownContent.appendChild(dropdown)
+
         console.log(movie)
       }
-    }
-    else{
+    } else {
+      this.dropdownItem.classList.toggle('is-active')
+      const dropdownContent = document.querySelector('.dropdown-content')
+      const dropdown = document.createElement('a')
+      dropdown.className = 'dropdown-item'
+      dropdown.href = '#'
+      dropdown.innerText = 'Movie not found'
+      dropdownContent.appendChild(dropdown)
       console.log(movies.data.Error)
     }
   }

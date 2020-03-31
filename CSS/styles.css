@@ -43,3 +43,12 @@ body {
   width: 25rem;
   margin: 0 2%;
 }
+
+.search-dropdown-main {
+  width: 22rem;
+}
+.dropdown-content {
+  width: 22rem;
+}
+
+/* Dropdown Toggle */
