@@ -3,7 +3,6 @@ class Movie {
     this.movie1Input = movie1Input
     this.movie2Input = movie2Input
     this.dropdownItem = dropdownItem
-
     if (callbacks) {
       this.movieData = callbacks.movieData
     }
@@ -30,24 +29,18 @@ class Movie {
     if (!movies.data.Error) {
       this.dropdownItem.classList.toggle('is-active')
       for (let movie of movies.data.Search) {
-        this.dropdownItem.classList.toggle('is-active')
-        const dropdownContent = document.querySelector('.dropdown-content')
-        const dropdown = document.createElement('a')
-        dropdown.className = 'dropdown-item'
-        dropdown.href = '#'
-        dropdown.innerText = movie.Title
-        dropdownContent.appendChild(dropdown)
-
+        let text = `
+        <a href= "#" class="dropdown-item">
+          <div>
+          <h1>Movie name</h1>
+          <i class="fas fa-facebook"></i>
+          </div>
+        </a>
+        `
+        document.querySelector(".dropdown-content").insertAdjacentHTML("afterbegin", text)
         console.log(movie)
       }
     } else {
-      this.dropdownItem.classList.toggle('is-active')
-      const dropdownContent = document.querySelector('.dropdown-content')
-      const dropdown = document.createElement('a')
-      dropdown.className = 'dropdown-item'
-      dropdown.href = '#'
-      dropdown.innerText = 'Movie not found'
-      dropdownContent.appendChild(dropdown)
       console.log(movies.data.Error)
     }
   }
