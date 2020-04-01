@@ -49,6 +49,8 @@ body {
 }
 .dropdown-content {
   width: 22rem;
+  max-height: 25em;
+  overflow: auto;
 }
 
 /* Dropdown Toggle */

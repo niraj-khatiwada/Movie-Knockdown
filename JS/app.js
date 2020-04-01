@@ -1,12 +1,21 @@
-class Movie {
-  constructor(movie1Input, movie2Input, dropdownItem, callbacks) {
+class DOM {
+  constructor(DOMcallbacks) {
+    if (DOMcallbacks) {
+      this.DOMcallbacks = DOMcallbacks
+    }
+  }
+}
+
+class Movie extends DOM {
+  constructor(movie1Input, movie2Input, dropdownItem, callbacks, DOMcallbacks) {
+    super(DOMcallbacks)
     this.movie1Input = movie1Input
     this.movie2Input = movie2Input
     this.dropdownItem = dropdownItem
+
     if (callbacks) {
       this.movieData = callbacks.movieData
     }
-    // this.movie1Input.addEventListener('input', this.fetchData)
     this.movie1Input.addEventListener(
       'input',
       this.debounce(this.getSearchData)
@@ -29,24 +38,10 @@ class Movie {
     if (!movies.data.Error) {
       this.dropdownItem.classList.toggle('is-active')
       for (let movie of movies.data.Search) {
-        let text = `
-        <a href="#" class="dropdown-item">
-          <div style="display: grid;grid-template-columns: auto 1fr;gap: 1rem; ">
-            <div class="image" style="width: 40px;"> 
-              <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/d1pklzbuyaab0la-1552597012.jpg" alt="" width="100%">
-            </div>
-            <div style="text-align: left;overflow:hidden; text-overflow:ellipsis;">
-              <strong >${movie.Title}</strong>
-              <p>2019</p>
-            </div>
-          </div>
-        </a>
-        `
         console.log(movie)
         document
           .querySelector('.dropdown-content')
-          .insertAdjacentHTML('afterbegin', text)
-        console.log(movie)
+          .insertAdjacentHTML('afterbegin', this.DOMcallbacks.addHTML(movie))
       }
     } else {
       console.log(movies.data.Error)
@@ -70,3 +65,5 @@ class Movie {
       })
   }
 }
+
+//{Title: "Batman: The Dark Knight Returns, Part 2", Year: "2013", imdbID: "tt2166834", Type: "movie", Poster: "https://m.media-amazon.com/images/M/MV5BYTEzMmE0ZD…WM3ZjA0XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"}Title: "Batman: The Dark Knight Returns, Part 2"Year: "2013"imdbID: "tt2166834"Type: "movie"Poster: "https://m.media-amazon.com/images/M/MV5BYTEzMmE0ZDYtYWNmYi00ZWM4LWJjOTUtYTE0ZmQyYWM3ZjA0XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"__proto__: Object
