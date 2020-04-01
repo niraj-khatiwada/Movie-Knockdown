@@ -41,7 +41,7 @@ body {
 .movie .col {
   text-align: center;
   width: 25rem;
-  margin: 0 2%;
+  margin: 0 1%;
 }
 
 .search-dropdown-main {
@@ -53,4 +53,7 @@ body {
   overflow: auto;
 }
 
-/* Dropdown Toggle */
+.row{
+  margin: 0;
+}
+

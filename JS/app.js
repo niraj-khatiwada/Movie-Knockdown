@@ -1,20 +1,10 @@
-class DOM {
-  constructor(DOMcallbacks) {
-    if (DOMcallbacks) {
-      this.DOMcallbacks = DOMcallbacks
-    }
-  }
-}
-
-class Movie extends DOM {
-  constructor(movie1Input, movie2Input, dropdownItem, callbacks, DOMcallbacks) {
-    super(DOMcallbacks)
+class Movie {
+  constructor(movie1Input, movie2Input, callbacks) {
     this.movie1Input = movie1Input
     this.movie2Input = movie2Input
-    this.dropdownItem = dropdownItem
 
     if (callbacks) {
-      this.movieData = callbacks.movieData
+      this.callbacks = callbacks
     }
     this.movie1Input.addEventListener(
       'input',
@@ -23,7 +13,7 @@ class Movie extends DOM {
   }
   debounce = (callback) => {
     this.timerID
-    return (...args) => {
+    return () => {
       if (this.timerID) {
         clearTimeout(this.timerID)
       }
@@ -35,25 +25,36 @@ class Movie extends DOM {
 
   getSearchData = async () => {
     const movies = await this.fetchData()
+    document.querySelector('.dropdown-content').innerHTML = ''
     if (!movies.data.Error) {
-      this.dropdownItem.classList.toggle('is-active')
+      this.callbacks.addDropdown()
       for (let movie of movies.data.Search) {
         console.log(movie)
-        document
-          .querySelector('.dropdown-content')
-          .insertAdjacentHTML('afterbegin', this.DOMcallbacks.addHTML(movie))
+        this.callbacks.addHTML(movie)
       }
     } else {
+      this.callbacks.addDropdown()
+      document.querySelector('.dropdown-content').innerHTML = `
+      <div style="text-align:center; height:20px; color:red">
+        <p>No matching movies found </p>
+      </div>
+      `
       console.log(movies.data.Error)
     }
   }
 
   fetchData = async () => {
+    let inputNum
+    if (this.movie1Input.value) {
+      inputNum = this.movie1Input.value
+    } else {
+      inputNum = this.movie2Input.value
+    }
     return await axios
       .get('http://www.omdbapi.com/', {
         params: {
           apikey: 'df784551',
-          s: this.movie1Input.value,
+          s: inputNum,
         },
       })
       .then((res) => {
@@ -65,5 +66,3 @@ class Movie extends DOM {
       })
   }
 }
-
-//{Title: "Batman: The Dark Knight Returns, Part 2", Year: "2013", imdbID: "tt2166834", Type: "movie", Poster: "https://m.media-amazon.com/images/M/MV5BYTEzMmE0ZD…WM3ZjA0XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"}Title: "Batman: The Dark Knight Returns, Part 2"Year: "2013"imdbID: "tt2166834"Type: "movie"Poster: "https://m.media-amazon.com/images/M/MV5BYTEzMmE0ZDYtYWNmYi00ZWM4LWJjOTUtYTE0ZmQyYWM3ZjA0XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"__proto__: Object
