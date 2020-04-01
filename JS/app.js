@@ -30,14 +30,22 @@ class Movie {
       this.dropdownItem.classList.toggle('is-active')
       for (let movie of movies.data.Search) {
         let text = `
-        <a href= "#" class="dropdown-item">
-          <div>
-          <h1>Movie name</h1>
-          <i class="fas fa-facebook"></i>
+        <a href="#" class="dropdown-item">
+          <div style="display: grid;grid-template-columns: auto 1fr;gap: 1rem; ">
+            <div class="image" style="width: 40px;"> 
+              <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/d1pklzbuyaab0la-1552597012.jpg" alt="" width="100%">
+            </div>
+            <div style="text-align: left;overflow:hidden; text-overflow:ellipsis;">
+              <strong >${movie.Title}</strong>
+              <p>2019</p>
+            </div>
           </div>
         </a>
         `
-        document.querySelector(".dropdown-content").insertAdjacentHTML("afterbegin", text)
+        console.log(movie)
+        document
+          .querySelector('.dropdown-content')
+          .insertAdjacentHTML('afterbegin', text)
         console.log(movie)
       }
     } else {
