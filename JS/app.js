@@ -31,7 +31,9 @@ class Movie {
       for (let movie of movies.data.Search) {
         console.log(movie)
         this.callbacks.addHTML(movie)
+        this.callbacks.onAnchorClick(movie)
       }
+      this.callbacks.closeDropdown()
     } else {
       this.callbacks.addDropdown()
       document.querySelector('.dropdown-content').innerHTML = `
@@ -39,6 +41,7 @@ class Movie {
         <p>No matching movies found </p>
       </div>
       `
+      this.callbacks.closeDropdown()
       console.log(movies.data.Error)
     }
   }

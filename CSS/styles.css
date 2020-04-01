@@ -8,13 +8,17 @@
   box-sizing: border-box;
 }
 
+h1,
 h2 {
   color: white;
   font-family: var(--baseFont);
+  font: var(--baseFont);
+  font-size: var(--baseFontSize);
 }
 
 :root {
   --baseFont: 'Open Sans', sans-serif;
+  --baseFontSize: 2rem;
 }
 
 body {
@@ -35,9 +39,8 @@ body {
 .compare {
   display: flex;
   justify-content: center;
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
-
 .movie .col {
   text-align: center;
   width: 25rem;
@@ -53,7 +56,22 @@ body {
   overflow: auto;
 }
 
-.row{
+.row {
   margin: 0;
 }
 
+.movie-details{
+  display: grid;
+  grid-template-columns: repeat(2, 20%);
+  justify-content: center;
+}
+.movie-details h1{
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .movie-details{
+    /* gap: 10%; */
+    grid-template-columns: repeat(2, 50%);
+  }
+}
