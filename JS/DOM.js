@@ -1,10 +1,10 @@
-const movie1Input = document.querySelector('#movie1')
-const movie2Input = document.querySelector('#movie2')
+const movie0input = document.querySelector('#movie0')
+const movie1input = document.querySelector('#movie1')
 
-const dropdownItem = document.querySelector('.dropdown')
+const dropdownItem = document.querySelectorAll('.dropdown')
 
-const movieObj = new Movie(movie1Input, movie2Input, {
-  addHTML(movie) {
+const movieObj = new Movie(movie0input, movie1input, {
+  addHTML(movie, inputNum) {
     if (movie.Poster === 'N/A') {
       movie.Poster = '/Image/no-poster-available.jpg'
     }
@@ -21,34 +21,36 @@ const movieObj = new Movie(movie1Input, movie2Input, {
       </div>
     </a>
     `
+    console.log(inputNum)
     return document
-      .querySelector('.dropdown-content')
-      .insertAdjacentHTML('afterbegin', text)
+      .querySelectorAll('.dropdown-content')
+      [inputNum].insertAdjacentHTML('afterbegin', text)
   },
-  addDropdown() {
-    return dropdownItem.classList.add('is-active')
+  addDropdown(inputNum) {
+    return dropdownItem[inputNum].classList.add('is-active')
   },
-  closeDropdown() {
+  closeDropdown(inputNum) {
     document.addEventListener('click', (evt) => {
-      if (
-        !dropdownItem.contains(evt.target) &&
-        !movie2Input.contains(evt.target)
-      ) {
-        dropdownItem.classList.remove('is-active')
-      } else if (movie2Input.value === '') {
-        dropdownItem.classList.remove('is-active')
+      if (!dropdownItem[inputNum].contains(evt.target)) {
+        dropdownItem[inputNum].classList.remove('is-active')
+      } else if (movie0input.value === '' || movie1input.value === '') {
+        dropdownItem[inputNum].classList.remove('is-active')
       }
     })
   },
-  onAnchorClick(movie) {
+  onAnchorClick(movie, inputNum) {
     const anchor = document.querySelector('.dropdown-item')
     return anchor.addEventListener('click', () => {
-      dropdownItem.classList.remove('is-active')
-      movie2Input.value = movie.Title
-      this.getmovieDetails(movie.imdbID)
+      dropdownItem[inputNum].classList.remove('is-active')
+      if (inputNum === 0) {
+        movie0input.value = movie.Title
+      } else {
+        movie1input.value = movie.Title
+      }
+      this.getmovieDetails(movie.imdbID, inputNum)
     })
   },
-  async getmovieDetails(imdbID) {
+  async getmovieDetails(imdbID, inputNum) {
     if (imdbID) {
       await axios
         .get('http://www.omdbapi.com/', {
@@ -58,15 +60,15 @@ const movieObj = new Movie(movie1Input, movie2Input, {
           },
         })
         .then((res) => {
-          return this.showMovieDetails(res.data)
+          return this.showMovieDetails(res.data, inputNum)
         })
         .catch((err) => {
           console.log("Movie Details couldn't be fetched. Try again", err)
         })
     }
   },
-  showMovieDetails(movieDetail) {
-    console.log(movieDetail)
+  showMovieDetails(movieDetail, inputNum) {
+    console.log("Movie Detail", movieDetail)
     let text = `
     <div class="poster-and-briefs">
       <div class="poster">
@@ -102,7 +104,7 @@ const movieObj = new Movie(movie1Input, movie2Input, {
       <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
     </div>
     `
-    const column1 = document.querySelector('.column-2')
+    const column1 = document.querySelector(`.column-${inputNum}`)
     column1.innerHTML = text
   },
 })

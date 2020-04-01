@@ -31,7 +31,23 @@
       <section class="hero">
         <div class="compare">
           <div class="row movie">
-            <div class="col">
+            <div class="col input1">
+              <h2>Movie</h2>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Give a name"
+                id="movie0"
+              />
+
+              <div class="dropdown search-dropdown-main">
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col input2">
               <h2>Movie</h2>
 
               <input
@@ -47,58 +63,19 @@
                 </div>
               </div>
             </div>
-            <div class="col">
-              <h2>Movie</h2>
-
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Give a name"
-                id="movie2"
-              />
-
-              <div class="dropdown search-dropdown-main">
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                  <div class="dropdown-content"></div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="movie-details">
+          <div class="column-0"></div>
           <div class="column-1"></div>
-          <div class="column-2">
-            <h1>Movie Name</h1>
-          </div>
         </div>
       </section>
     </div>
+    <footer>
+      <div style="display: grid;justify-content: flex-end;"></div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/JS/app.js"></script>
     <script src="/JS/DOM.js"></script>
   </body>
 </html>
-
-<!-- <h1></h1>
-<div class="poster-and-briefs">
-  <div class="poster">
-    <img src="" alt="">
-  </div>
-  <div class="briefs">
-    <p class="briefing"></p>
-  </div>
-</div> -->
-
-
-<div class="awards">
-  <strong>Awards: </strong><h3>${}</h3>
-</div>
-<div class="metascore">
-  <strong>Metascore: </strong><h3>${}</h3>
-</div>
-<div class="imdbRating">
-  <strong>IMDB Ratings: </strong><h3>${}</h3>
-</div>
-<div class="imdbRating">
-  <strong>IMDB Votes: </strong><h3>${}</h3>
-</div>
