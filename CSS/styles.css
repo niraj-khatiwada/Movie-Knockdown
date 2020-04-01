@@ -75,3 +75,7 @@ body {
     grid-template-columns: repeat(2, 50%);
   }
 }
+
+.column1{
+  background: white;
+}

@@ -29,11 +29,9 @@ class Movie {
     if (!movies.data.Error) {
       this.callbacks.addDropdown()
       for (let movie of movies.data.Search) {
-        console.log(movie)
         this.callbacks.addHTML(movie)
         this.callbacks.onAnchorClick(movie)
       }
-      this.fetchMovieDetails()
       this.callbacks.closeDropdown()
     } else {
       this.callbacks.addDropdown()
@@ -68,25 +66,5 @@ class Movie {
       .catch((err) => {
         console.log('Something went wrong with OMDB server. Try again', err)
       })
-  }
-
-  fetchMovieDetails = async () => {
-    console.log('IMDB ID is', this.movie1Input.value)
-    // if (imdbID) {
-    //   return await axios
-    //     .get('http://www.omdbapi.com/', {
-    //       params: {
-    //         apikey: 'df784551',
-    //         t: imdbID,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log('Movie Data Fetched', res)
-    //       return res
-    //     })
-    //     .catch((err) => {
-    //       console.log("Movie Details couldn't be fetched. Try again")
-    //     })
-    // }
   }
 }
