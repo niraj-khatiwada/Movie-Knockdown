@@ -7,15 +7,22 @@
   margin: 0;
   box-sizing: border-box;
 }
+body{
+  color: white;
+  font-size: 1rem;
+}
 
 h1,
-h2 {
-  color: white;
+h2{
   font-family: var(--baseFont);
   font: var(--baseFont);
   font-size: var(--baseFontSize);
 }
 
+strong{
+  color: white;
+  font-size: 1.2rem;
+}
 :root {
   --baseFont: 'Open Sans', sans-serif;
   --baseFontSize: 2rem;
@@ -23,6 +30,7 @@ h2 {
 
 body {
   position: relative;
+  background: black;
 }
 
 .logo-img {
@@ -32,18 +40,20 @@ body {
 
 .container {
   min-width: 100vw;
-  height: 100vh;
-  background: url('/Image/Hero.jpg') center/cover no-repeat;
+  
 }
 
-.compare {
-  display: flex;
+.movie{
+  display: grid;
+  grid-template-columns: repeat(2, 40%);
   justify-content: center;
+}
+.compare {
   padding-top: 3rem;
+  
 }
 .movie .col {
   text-align: center;
-  width: 25rem;
   margin: 0 1%;
 }
 
@@ -51,7 +61,7 @@ body {
   width: 22rem;
 }
 .dropdown-content {
-  width: 22rem;
+  width: 22rem ;
   max-height: 25em;
   overflow: auto;
 }
@@ -60,22 +70,36 @@ body {
   margin: 0;
 }
 
-.movie-details{
+.movie-details {
   display: grid;
-  grid-template-columns: repeat(2, 20%);
+  grid-template-columns: repeat(2, 40%);
   justify-content: center;
-}
-.movie-details h1{
-  text-align: center;
+  gap: 1rem;
 }
 
+
 @media screen and (max-width: 768px) {
-  .movie-details{
+  .movie-details {
     /* gap: 10%; */
+    grid-template-columns: repeat(2, 50%);
+  }
+  .movie{
     grid-template-columns: repeat(2, 50%);
   }
 }
 
-.column1{
+.column1 {
   background: white;
 }
+
+.poster-and-briefs{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+}
+.poster{
+  padding: 1rem;
+}
+/* .awards, .metascore, .imdbRating, .imdbRating, .box-office{
+  text-align: right;
+} */

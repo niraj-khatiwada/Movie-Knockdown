@@ -6,7 +6,7 @@ class Movie {
     if (callbacks) {
       this.callbacks = callbacks
     }
-    this.movie1Input.addEventListener(
+    this.movie2Input.addEventListener(
       'input',
       this.debounce(this.getSearchData)
     )
@@ -47,8 +47,8 @@ class Movie {
 
   fetchSearchData = async () => {
     let inputNum
-    if (this.movie1Input.value) {
-      inputNum = this.movie1Input.value
+    if (this.movie2Input.value) {
+      inputNum = this.movie2Input.value
     } else {
       inputNum = this.movie2Input.value
     }
