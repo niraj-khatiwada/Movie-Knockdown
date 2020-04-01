@@ -42,7 +42,7 @@ const movieObj = new Movie(movie1Input, movie2Input, {
   },
   onAnchorClick(movie) {
     const anchor = document.querySelector('.dropdown-item')
-    anchor.addEventListener('click', (evt) => {
+    anchor.addEventListener('click', () => {
       dropdownItem.classList.remove('is-active')
       movie1Input.value = movie.Title
     })
