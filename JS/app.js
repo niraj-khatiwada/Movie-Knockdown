@@ -28,14 +28,16 @@ class Movie {
   }
 
   getSearchData = async () => {
-    const movies = await this.fetchSearchData()
     this.inputNum
     if (document.activeElement.id === 'movie0') {
       this.inputNum = 0
-    } else {
+      // this.movie1Input.value = ''
+    } else if (document.activeElement.id == 'movie1') {
       this.inputNum = 1
+      // this.movie0Input.value = ''
     }
     document.querySelectorAll('.dropdown-content')[this.inputNum].innerHTML = ''
+    const movies = await this.fetchSearchData()
     if (!movies.data.Error) {
       this.callbacks.addDropdown(this.inputNum)
       for (let movie of movies.data.Search) {
@@ -45,7 +47,9 @@ class Movie {
       this.callbacks.closeDropdown(this.inputNum)
     } else {
       this.callbacks.addDropdown(this.inputNum)
-      document.querySelectorAll('.dropdown-content')[this.inputNum].innerHTML = `
+      document.querySelectorAll('.dropdown-content')[
+        this.inputNum
+      ].innerHTML = `
       <div style="text-align:center; height:20px; color:red">
         <p>No matching movies found </p>
       </div>

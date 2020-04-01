@@ -9,7 +9,7 @@ const movieObj = new Movie(movie0input, movie1input, {
       movie.Poster = '/Image/no-poster-available.jpg'
     }
     let text = `
-    <a href="#" class="dropdown-item">
+    <a href="#" class="dropdown-item-${inputNum}">
       <div style="display: grid;grid-template-columns: auto 1fr;gap: 1rem; ">
         <div class="image" style="width: 40px;"> 
           <img src="${movie.Poster}" alt="N/A" width="100%">
@@ -21,7 +21,7 @@ const movieObj = new Movie(movie0input, movie1input, {
       </div>
     </a>
     `
-    console.log(inputNum)
+
     return document
       .querySelectorAll('.dropdown-content')
       [inputNum].insertAdjacentHTML('afterbegin', text)
@@ -39,18 +39,20 @@ const movieObj = new Movie(movie0input, movie1input, {
     })
   },
   onAnchorClick(movie, inputNum) {
-    const anchor = document.querySelector('.dropdown-item')
+    const anchor = document.querySelector(`.dropdown-item-${inputNum}`)
     return anchor.addEventListener('click', () => {
+      console.log('AnchorClick inside event listener', inputNum)
       dropdownItem[inputNum].classList.remove('is-active')
       if (inputNum === 0) {
         movie0input.value = movie.Title
-      } else {
+      } else if (inputNum === 1) {
         movie1input.value = movie.Title
       }
       this.getmovieDetails(movie.imdbID, inputNum)
     })
   },
   async getmovieDetails(imdbID, inputNum) {
+    console.log('Imdb Id is', imdbID)
     if (imdbID) {
       await axios
         .get('http://www.omdbapi.com/', {
@@ -68,7 +70,7 @@ const movieObj = new Movie(movie0input, movie1input, {
     }
   },
   showMovieDetails(movieDetail, inputNum) {
-    console.log("Movie Detail", movieDetail)
+    console.log('Movie Detail', movieDetail)
     let text = `
     <div class="poster-and-briefs">
       <div class="poster">
