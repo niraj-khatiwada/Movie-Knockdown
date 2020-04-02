@@ -47,7 +47,7 @@ class Movie {
       this.callbacks.addDropdown(this.inputNum)
       this.callbacks.noMatchingMovies(this.inputNum)
       this.callbacks.closeDropdown(this.inputNum)
-      // console.log(movies.data.Error)
+      console.log(movies.data.Error)
     }
   }
 
@@ -66,11 +66,11 @@ class Movie {
         },
       })
       .then((res) => {
-        // console.log('Connected to OMDB server', res)
+        console.log('Connected to OMDB server', res)
         return res
       })
       .catch((err) => {
-        // console.log('Something went wrong with OMDB server. Try again', err)
+        console.log('Something went wrong with OMDB server. Try again', err)
       })
   }
   onAnchorClick = (movie) => {
@@ -95,10 +95,11 @@ class Movie {
           },
         })
         .then((res) => {
+          console.log('Movie Detail: ', res)
           return this.callbacks.showMovieDetails(res.data, this.inputNum)
         })
         .catch((err) => {
-          // console.log("Movie Details couldn't be fetched. Try again", err)
+          console.log("Movie Details couldn't be fetched. Try again", err)
         })
     }
   }

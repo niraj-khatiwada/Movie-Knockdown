@@ -51,6 +51,7 @@ const movieObj = new Movie(movie0input, movie1input, {
     if (movieDetail.Poster === 'N/A') {
       movieDetail.Poster = '/Image/noposter.jpg'
     }
+    const cleanedData = this.cleanData(movieDetail)
     const text0 = `
     <div class="poster-and-briefs">
       <div class="briefs">
@@ -97,7 +98,6 @@ const movieObj = new Movie(movie0input, movie1input, {
       
     </div>
     `
-    const cleanedData = this.cleanData(movieDetail)
     const side = `
       <div class="box-office" data-value=${cleanedData.boxOffice}>
         <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
@@ -163,25 +163,41 @@ const movieObj = new Movie(movie0input, movie1input, {
   },
 
   cleanData(movieDetail) {
-    const boxOffice = parseInt(
-      movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, ''),
-      10
-    )
-    const awardsArray = movieDetail.Awards.split(' ').reduce(
-      (preVal, currVal) => {
-        if (!isNaN(parseInt(currVal, 10))) {
-          preVal.push(parseInt(currVal, 10))
-        }
-        return preVal
-      },
-      []
-    )
-    const awards = awardsArray.reduce((preVal, currVal) => {
-      return preVal + currVal
-    })
-    const metascore = parseInt(movieDetail.Metascore, 10)
-    const imdbRating = parseFloat(movieDetail.imdbRating)
-    const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''), 10)
+    let boxOffice
+    let awards
+    let metascore
+    let imdbRating
+    let imdbVotes
+    if (movieDetail.BoxOffice !== 'N/A') {
+      boxOffice = parseInt(
+        movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, ''),
+        10
+      )
+    }
+
+    if (movieDetail.Awards != 'N/A') {
+      const awardsArray = movieDetail.Awards.split(' ').reduce(
+        (preVal, currVal) => {
+          if (!isNaN(parseInt(currVal, 10))) {
+            preVal.push(parseInt(currVal, 10))
+          }
+          return preVal
+        },
+        []
+      )
+      awards = awardsArray.reduce((preVal, currVal) => {
+        return preVal + currVal
+      })
+    }
+    if (movieDetail.Metascore !== 'N/A') {
+      metascore = parseInt(movieDetail.Metascore, 10)
+    }
+    if (movieDetail.imdbRating !== 'N/A') {
+      imdbRating = parseFloat(movieDetail.imdbRating)
+    }
+    if (movieDetail.imdbVotes !== 'N/A') {
+      imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''), 10)
+    }
     return {
       boxOffice,
       awards,

@@ -18,14 +18,14 @@ strong {
   color: white;
   font-size: 1.3rem;
 }
-a{
-  color: black; 
+a {
+  color: black;
 }
-a:hover{
+a:hover {
   color: #204051;
 }
-a:active{
-  color: #1eb2a6  ;
+a:active {
+  color: #1eb2a6;
 }
 
 :root {
