@@ -116,12 +116,8 @@ body {
   height: 7rem;
 }
 /* Column 1 */
-.awards1,
-.metascore1,
-.imdbRating1,
-.imdbRating1,
-.box-office1 {
+.rightSide div{
   text-align: left;
-  padding: 10px;
-  height: 7rem;
 }
+
+/* Change Background Based on Statistics */

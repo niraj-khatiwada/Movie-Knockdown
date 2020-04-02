@@ -8,7 +8,7 @@ const movieObj = new Movie(movie0input, movie1input, {
     if (movie.Poster === 'N/A') {
       movie.Poster = '/Image/no-poster-available.jpg'
     }
-    let text = `
+    const text = `
     <a href="#" class="dropdown-item-${inputNum}">
       <div style="display: grid;grid-template-columns: auto 1fr;gap: 1rem; ">
         <div class="image" style="width: 40px;"> 
@@ -48,8 +48,7 @@ const movieObj = new Movie(movie0input, movie1input, {
     `
   },
   showMovieDetails(movieDetail, inputNum) {
-    console.log('Movie Detail', movieDetail)
-    let text0 = `
+    const text0 = `
     <div class="poster-and-briefs">
       <div class="briefs">
         <h1><strong>${movieDetail.Title}</strong>(${movieDetail.Year})</h1>
@@ -68,23 +67,11 @@ const movieObj = new Movie(movie0input, movie1input, {
       <img src="${movieDetail.Poster}" alt="">
       </div>
     </div>
-    <div class="box-office">
-      <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
-    </div>
-    <div class="awards">
-      <strong>Awards: </strong><h4>${movieDetail.Awards}</h4>
-    </div>
-    <div class="metascore">
-      <strong>Metascore: </strong><h3>${movieDetail.Metascore}</h3>
-    </div>
-    <div class="imdbRating">
-      <strong>IMDB Rating: </strong><h3>${movieDetail.imdbRating}</h3>
-    </div>
-    <div class="imdbRating">
-      <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
+    <div class = 'leftSide'>
+      
     </div>
     `
-    let text1 = `
+    const text1 = `
     <div class="poster-and-briefs1">
       <div class="poster1">
       <img src="${movieDetail.Poster}" alt="">
@@ -103,28 +90,57 @@ const movieObj = new Movie(movie0input, movie1input, {
         </div>
       </div>
     </div>
-    <div class="box-office1">
-      <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
-    </div>
-    <div class="awards1">
-      <strong>Awards: </strong><h4>${movieDetail.Awards}</h4>
-    </div>
-    <div class="metascore1">
-      <strong>Metascore: </strong><h3>${movieDetail.Metascore}</h3>
-    </div>
-    <div class="imdbRating1">
-      <strong>IMDB Rating: </strong><h3>${movieDetail.imdbRating}</h3>
-    </div>
-    <div class="imdbRating1">
-      <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
+    <div class = 'rightSide'> 
+      
     </div>
     `
+    const side = `
+      <div class="box-office">
+        <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
+      </div>
+      <div class="awards">
+        <strong>Awards: </strong><h4>${movieDetail.Awards}</h4>
+      </div>
+      <div class="metascore">
+        <strong>Metascore: </strong><h3>${movieDetail.Metascore}</h3>
+      </div>
+      <div class="imdbRating">
+        <strong>IMDB Rating: </strong><h3>${movieDetail.imdbRating}</h3>
+      </div>
+      <div class="imdbRating">
+        <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
+      </div>
+    `
+    
     if (inputNum === 0) {
-      const column0 = document.querySelector(`.column-0`)
-      column0.innerHTML = text0
-    } else if (inputNum === 1) {
-      const column1 = document.querySelector(`.column-1`)
-      column1.innerHTML = text1
+      document.querySelector(`.column-0`).innerHTML = text0
+      document.querySelector('.leftSide').innerHTML = side
+    } else {
+      document.querySelector(`.column-1`).innerHTML = text1
+      document.querySelector('.rightSide').innerHTML = side
+    }
+
+    this.cleanData(movieDetail)
+
+
+    const leftSide = document.querySelectorAll('.leftSide div')
+    const rightSide = document.querySelectorAll('.rightSide div')
+    if (leftSide && rightSide) {
+      this.startComparision(leftSide, rightSide)
     }
   },
+  startComparision(left, right) {
+    console.log(right)
+    left.forEach((value, index) => {
+      console.log(value, index)
+      console.log(right[index])
+    })
+  },
+  cleanData(movieDetail) {
+    const boxOffice =parseInt(movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g,''))
+    const metascore = parseInt(movieDetail.metascore)
+    const imdbRating = parseFloat(movieDetail.imdbRating)
+    const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''))
+    console.log(boxOffice, metascore, imdbRating, imdbVotes)
+  }
 })
