@@ -31,51 +31,26 @@ const movieObj = new Movie(movie0input, movie1input, {
   },
   closeDropdown(inputNum) {
     document.addEventListener('click', (evt) => {
-      if (!dropdownItem[inputNum].contains(evt.target)) {
-        dropdownItem[inputNum].classList.remove('is-active')
-      } else if (movie0input.value === '' || movie1input.value === '') {
+      if (
+        !dropdownItem[inputNum].contains(evt.target) ||
+        movie0input.value === '' ||
+        movie1input.value === ''
+      ) {
         dropdownItem[inputNum].classList.remove('is-active')
       }
     })
   },
-  onAnchorClick(movie, inputNum) {
-    const anchor = document.querySelector(`.dropdown-item-${inputNum}`)
-    return anchor.addEventListener('click', () => {
-      console.log('AnchorClick inside event listener', inputNum)
-      dropdownItem[inputNum].classList.remove('is-active')
-      if (inputNum === 0) {
-        movie0input.value = movie.Title
-      } else if (inputNum === 1) {
-        movie1input.value = movie.Title
-      }
-      this.getmovieDetails(movie.imdbID, inputNum)
-    })
-  },
-  async getmovieDetails(imdbID, inputNum) {
-    console.log('Imdb Id is', imdbID)
-    if (imdbID) {
-      await axios
-        .get('http://www.omdbapi.com/', {
-          params: {
-            apikey: 'df784551',
-            i: imdbID,
-          },
-        })
-        .then((res) => {
-          return this.showMovieDetails(res.data, inputNum)
-        })
-        .catch((err) => {
-          console.log("Movie Details couldn't be fetched. Try again", err)
-        })
-    }
+  noMatchingMovies(inputNum) {
+    document.querySelectorAll('.dropdown-content')[inputNum].innerHTML = `
+    <div style="text-align:center; height:20px; color:red">
+      <p>No matching movies found </p>
+    </div>
+    `
   },
   showMovieDetails(movieDetail, inputNum) {
     console.log('Movie Detail', movieDetail)
-    let text = `
+    let text0 = `
     <div class="poster-and-briefs">
-      <div class="poster">
-      <img src="${movieDetail.Poster}" alt="">
-      </div>
       <div class="briefs">
         <h1><strong>${movieDetail.Title}</strong>(${movieDetail.Year})</h1>
         <p class="briefing">${movieDetail.Plot}</p>
@@ -83,18 +58,21 @@ const movieObj = new Movie(movie0input, movie1input, {
         <strong>Genre:</strong><p> ${movieDetail.Genre}</p>
         </div>
         <div>
-        <strong>Released Date: </strong><p> ${movieDetail.Released}</p>
+        <strong>Released Date: </strong><p> ${movieDetail.Released}, ${movieDetail.Country}</p>
         </div>
         <div>
         <strong>Casts: </strong><p> ${movieDetail.Actors}</p>
         </div>
+      </div>
+      <div class="poster">
+      <img src="${movieDetail.Poster}" alt="">
       </div>
     </div>
     <div class="box-office">
       <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
     </div>
     <div class="awards">
-      <strong>Awards: </strong><h3>${movieDetail.Awards}</h3>
+      <strong>Awards: </strong><h4>${movieDetail.Awards}</h4>
     </div>
     <div class="metascore">
       <strong>Metascore: </strong><h3>${movieDetail.Metascore}</h3>
@@ -106,7 +84,47 @@ const movieObj = new Movie(movie0input, movie1input, {
       <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
     </div>
     `
-    const column1 = document.querySelector(`.column-${inputNum}`)
-    column1.innerHTML = text
+    let text1 = `
+    <div class="poster-and-briefs1">
+      <div class="poster1">
+      <img src="${movieDetail.Poster}" alt="">
+      </div>
+      <div class="briefs1">
+        <h1><strong>${movieDetail.Title}</strong>(${movieDetail.Year})</h1>
+        <p class="briefing1">${movieDetail.Plot}</p>
+        <div>
+        <strong>Genre:</strong><p> ${movieDetail.Genre}</p>
+        </div>
+        <div>
+        <strong>Released Date: </strong><p> ${movieDetail.Released}, ${movieDetail.Country}</p>
+        </div>
+        <div>
+        <strong>Casts: </strong><p> ${movieDetail.Actors}</p>
+        </div>
+      </div>
+    </div>
+    <div class="box-office1">
+      <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
+    </div>
+    <div class="awards1">
+      <strong>Awards: </strong><h4>${movieDetail.Awards}</h4>
+    </div>
+    <div class="metascore1">
+      <strong>Metascore: </strong><h3>${movieDetail.Metascore}</h3>
+    </div>
+    <div class="imdbRating1">
+      <strong>IMDB Rating: </strong><h3>${movieDetail.imdbRating}</h3>
+    </div>
+    <div class="imdbRating1">
+      <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
+    </div>
+    `
+    if (inputNum === 0) {
+      const column0 = document.querySelector(`.column-0`)
+      column0.innerHTML = text0
+    } else if (inputNum === 1) {
+      const column1 = document.querySelector(`.column-1`)
+      column1.innerHTML = text1
+    }
   },
 })

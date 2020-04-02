@@ -16,7 +16,7 @@ h2 {
 
 strong {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 :root {
   --baseFont: 'Open Sans', sans-serif;
@@ -70,7 +70,6 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 40%);
   justify-content: center;
-  gap: 1rem;
 }
 
 @media screen and (max-width: 768px) {
@@ -83,22 +82,46 @@ body {
   }
 }
 
-.column1 {
-  background: white;
+.column-1 {
+  margin-left: 0.8rem;
 }
 
 .poster-and-briefs {
   display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  height: 25rem;
+}
+.briefs {
+  text-align: right;
+}
+.poster-and-briefs1 {
+  display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 1rem;
+  height: 25rem;
 }
-.poster {
-  padding: 1rem;
+.poster,
+.poster1 {
+  padding: 10px;
 }
+/* Column0 */
 .awards,
 .metascore,
 .imdbRating,
 .imdbRating,
 .box-office {
   text-align: right;
+  padding: 10px;
+  height: 7rem;
+}
+/* Column 1 */
+.awards1,
+.metascore1,
+.imdbRating1,
+.imdbRating1,
+.box-office1 {
+  text-align: left;
+  padding: 10px;
+  height: 7rem;
 }

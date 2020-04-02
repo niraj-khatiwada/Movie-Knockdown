@@ -31,10 +31,8 @@ class Movie {
     this.inputNum
     if (document.activeElement.id === 'movie0') {
       this.inputNum = 0
-      // this.movie1Input.value = ''
     } else if (document.activeElement.id == 'movie1') {
       this.inputNum = 1
-      // this.movie0Input.value = ''
     }
     document.querySelectorAll('.dropdown-content')[this.inputNum].innerHTML = ''
     const movies = await this.fetchSearchData()
@@ -42,18 +40,12 @@ class Movie {
       this.callbacks.addDropdown(this.inputNum)
       for (let movie of movies.data.Search) {
         this.callbacks.addHTML(movie, this.inputNum)
-        this.callbacks.onAnchorClick(movie, this.inputNum)
+        this.onAnchorClick(movie)
       }
       this.callbacks.closeDropdown(this.inputNum)
     } else {
       this.callbacks.addDropdown(this.inputNum)
-      document.querySelectorAll('.dropdown-content')[
-        this.inputNum
-      ].innerHTML = `
-      <div style="text-align:center; height:20px; color:red">
-        <p>No matching movies found </p>
-      </div>
-      `
+      this.callbacks.noMatchingMovies(this.inputNum)
       this.callbacks.closeDropdown(this.inputNum)
       console.log(movies.data.Error)
     }
@@ -80,5 +72,36 @@ class Movie {
       .catch((err) => {
         console.log('Something went wrong with OMDB server. Try again', err)
       })
+  }
+  onAnchorClick = (movie) => {
+    const anchor = document.querySelector(`.dropdown-item-${this.inputNum}`)
+    return anchor.addEventListener('click', () => {
+      console.log('AnchorClick inside event listener', this.inputNum)
+      dropdownItem[this.inputNum].classList.remove('is-active')
+      if (this.inputNum === 0) {
+        movie0input.value = movie.Title
+      } else if (this.inputNum === 1) {
+        movie1input.value = movie.Title
+      }
+      this.getmovieDetails(movie.imdbID)
+    })
+  }
+  getmovieDetails = async (imdbID) => {
+    console.log('Imdb Id is', imdbID)
+    if (imdbID) {
+      await axios
+        .get('http://www.omdbapi.com/', {
+          params: {
+            apikey: 'df784551',
+            i: imdbID,
+          },
+        })
+        .then((res) => {
+          return this.callbacks.showMovieDetails(res.data, this.inputNum)
+        })
+        .catch((err) => {
+          console.log("Movie Details couldn't be fetched. Try again", err)
+        })
+    }
   }
 }
