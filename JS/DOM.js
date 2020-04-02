@@ -52,6 +52,7 @@ const movieObj = new Movie(movie0input, movie1input, {
       movieDetail.Poster = '/Image/noposter.jpg'
     }
     const cleanedData = this.cleanData(movieDetail)
+    console.log(cleanedData)
     const text0 = `
     <div class="poster-and-briefs">
       <div class="briefs">
@@ -135,26 +136,26 @@ const movieObj = new Movie(movie0input, movie1input, {
   startComparision(left, right) {
     left.forEach((value, index) => {
       if (
-        parseInt(value.dataset.value, 10) >
-        parseInt(right[index].dataset.value, 10)
+        parseFloat(value.dataset.value) > parseFloat(right[index].dataset.value)
       ) {
         value.classList.add('green')
         right[index].classList.remove('green')
       } else if (
-        isNaN(parseInt(value.dataset.value, 10)) ||
-        isNaN(parseInt(right[index].dataset.value, 10))
+        isNaN(
+          parseFloat(value.dataset.value) ||
+            isNaN(parseFloat(right[index].dataset.value))
+        )
       ) {
         value.classList.remove('green')
         right[index].classList.remove('green')
       } else if (
-        parseInt(value.dataset.value, 10) <
-        parseInt(right[index].dataset.value, 10)
+        parseFloat(value.dataset.value) < parseFloat(right[index].dataset.value)
       ) {
         value.classList.remove('green')
         right[index].classList.add('green')
       } else if (
-        parseInt(value.dataset.value, 10) ===
-        parseInt(right[index].dataset.value, 10)
+        parseFloat(value.dataset.value) ===
+        parseFloat(right[index].dataset.value)
       ) {
         value.classList.add('green')
         right[index].classList.add('green')
