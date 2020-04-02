@@ -18,6 +18,16 @@ strong {
   color: white;
   font-size: 1.3rem;
 }
+a{
+  color: black; 
+}
+a:hover{
+  color: #204051;
+}
+a:active{
+  color: #1eb2a6  ;
+}
+
 :root {
   --baseFont: 'Open Sans', sans-serif;
   --baseFontSize: 2rem;
@@ -57,9 +67,12 @@ body {
   width: 22rem;
 }
 .dropdown-content {
-  width: 22rem;
+  width: 25em;
   max-height: 25em;
+  padding: 1rem;
   overflow: auto;
+  text-decoration: none;
+  background-color: #faf4f4;
 }
 
 .row {
@@ -109,15 +122,21 @@ body {
 .awards,
 .metascore,
 .imdbRating,
-.imdbRating,
+.imdbVotes,
 .box-office {
   text-align: right;
   padding: 10px;
   height: 7rem;
+  margin: 0.5rem;
+  background-color: #f76a8c;
+  color: black;
 }
 /* Column 1 */
-.rightSide div{
+.rightSide div {
   text-align: left;
 }
 
 /* Change Background Based on Statistics */
+.green {
+  background-color: #1eb2a6;
+}

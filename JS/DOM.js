@@ -15,7 +15,7 @@ const movieObj = new Movie(movie0input, movie1input, {
           <img src="${movie.Poster}" alt="N/A" width="100%">
         </div>
         <div style="text-align: left;overflow:hidden; text-overflow:ellipsis;">
-          <strong >${movie.Title}</strong>
+          <h6>${movie.Title}</h6>
           <p>${movie.Year}</p>
         </div>
       </div>
@@ -94,34 +94,33 @@ const movieObj = new Movie(movie0input, movie1input, {
       
     </div>
     `
+    const cleanedData = this.cleanData(movieDetail)
     const side = `
-      <div class="box-office">
+      <div class="box-office" data-value=${cleanedData.boxOffice}>
         <strong>Box-Office: </strong><h3>${movieDetail.BoxOffice}</h3>
       </div>
-      <div class="awards">
+      <div class="awards" data-value=${cleanedData.awards}>
         <strong>Awards: </strong><h4>${movieDetail.Awards}</h4>
       </div>
-      <div class="metascore">
+      <div class="metascore" data-value=${cleanedData.metascore}>
         <strong>Metascore: </strong><h3>${movieDetail.Metascore}</h3>
       </div>
-      <div class="imdbRating">
+      <div class="imdbRating" data-value=${cleanedData.imdbRating}>
         <strong>IMDB Rating: </strong><h3>${movieDetail.imdbRating}</h3>
       </div>
-      <div class="imdbRating">
+      <div class="imdbVotes" data-value=${cleanedData.imdbVotes}>
         <strong>IMDB Votes: </strong><h3>${movieDetail.imdbVotes}</h3>
       </div>
     `
-    
+
     if (inputNum === 0) {
       document.querySelector(`.column-0`).innerHTML = text0
       document.querySelector('.leftSide').innerHTML = side
+      document.querySelector('.leftside div')
     } else {
       document.querySelector(`.column-1`).innerHTML = text1
       document.querySelector('.rightSide').innerHTML = side
     }
-
-    this.cleanData(movieDetail)
-
 
     const leftSide = document.querySelectorAll('.leftSide div')
     const rightSide = document.querySelectorAll('.rightSide div')
@@ -129,18 +128,66 @@ const movieObj = new Movie(movie0input, movie1input, {
       this.startComparision(leftSide, rightSide)
     }
   },
+
   startComparision(left, right) {
     console.log(right)
     left.forEach((value, index) => {
-      console.log(value, index)
-      console.log(right[index])
+      console.log('Left', value, index)
+      console.log('right Value', right[index])
+      if (
+        parseInt(value.dataset.value, 10) >
+        parseInt(right[index].dataset.value, 10)
+      ) {
+        value.classList.add('green')
+        right[index].classList.remove('green')
+      } else if (
+        isNaN(parseInt(value.dataset.value, 10)) ||
+        isNaN(parseInt(right[index].dataset.value, 10))
+      ) {
+        value.classList.remove('green')
+        right[index].classList.remove('green')
+      } else if (
+        parseInt(value.dataset.value, 10) <
+        parseInt(right[index].dataset.value, 10)
+      ) {
+        value.classList.remove('green')
+        right[index].classList.add('green')
+      } else if (
+        parseInt(value.dataset.value, 10) ===
+        parseInt(right[index].dataset.value, 10)
+      ) {
+        value.classList.add('green')
+        right[index].classList.add('green')
+      }
     })
   },
+
   cleanData(movieDetail) {
-    const boxOffice =parseInt(movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g,''))
-    const metascore = parseInt(movieDetail.metascore)
+    const boxOffice = parseInt(
+      movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, ''),
+      10
+    )
+    const awardsArray = movieDetail.Awards.split(' ').reduce(
+      (preVal, currVal) => {
+        if (!isNaN(parseInt(currVal, 10))) {
+          preVal.push(parseInt(currVal, 10))
+        }
+        return preVal
+      },
+      []
+    )
+    const awards = awardsArray.reduce((preVal, currVal) => {
+      return preVal + currVal
+    })
+    const metascore = parseInt(movieDetail.Metascore, 10)
     const imdbRating = parseFloat(movieDetail.imdbRating)
-    const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''))
-    console.log(boxOffice, metascore, imdbRating, imdbVotes)
-  }
+    const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''), 10)
+    return {
+      boxOffice,
+      awards,
+      metascore,
+      imdbRating,
+      imdbVotes,
+    }
+  },
 })
