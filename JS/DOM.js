@@ -52,7 +52,6 @@ const movieObj = new Movie(movie0input, movie1input, {
       movieDetail.Poster = '/Image/noposter.jpg'
     }
     const cleanedData = this.cleanData(movieDetail)
-    console.log(cleanedData)
     const text0 = `
     <div class="poster-and-briefs">
       <div class="briefs">

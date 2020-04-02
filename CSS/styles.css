@@ -31,7 +31,7 @@ a:active {
 :root {
   --baseFont: 'Open Sans', sans-serif;
   --baseFontSize: 2rem;
-  background-color: black
+  background-color: black;
 }
 
 body {
@@ -75,11 +75,9 @@ body {
   text-decoration: none;
   background-color: #faf4f4;
 }
-
-.row {
-  margin: 0;
+img{
+  width: 100%;
 }
-
 .movie-details {
   display: grid;
   grid-template-columns: repeat(2, 40%);
@@ -87,17 +85,15 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  .movie-details {
-    /* gap: 10%; */
-    grid-template-columns: repeat(2, 50%);
-  }
+  .movie-details,
   .movie {
     grid-template-columns: repeat(2, 50%);
   }
 }
 
-.column-1 {
-  margin-left: 0.8rem;
+.column-0, .column-1{
+  display: grid;
+  grid-template-rows: 50% 50%;
 }
 
 .poster-and-briefs {
@@ -128,12 +124,11 @@ body {
   text-align: right;
   padding: 0 10px;
   height: 6rem;
-  margin: 0.5rem;
+  margin: 1%;
   background-color: #f76a8c;
   color: black;
   overflow: hidden;
-  text-overflow: ;
-
+  text-overflow: ellipsis;
 }
 /* Column 1 */
 .rightSide div {
