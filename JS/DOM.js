@@ -48,6 +48,9 @@ const movieObj = new Movie(movie0input, movie1input, {
     `
   },
   showMovieDetails(movieDetail, inputNum) {
+    if (movieDetail.Poster === 'N/A') {
+      movieDetail.Poster = '/Image/noposter.jpg'
+    }
     const text0 = `
     <div class="poster-and-briefs">
       <div class="briefs">
@@ -130,10 +133,7 @@ const movieObj = new Movie(movie0input, movie1input, {
   },
 
   startComparision(left, right) {
-    console.log(right)
     left.forEach((value, index) => {
-      console.log('Left', value, index)
-      console.log('right Value', right[index])
       if (
         parseInt(value.dataset.value, 10) >
         parseInt(right[index].dataset.value, 10)
