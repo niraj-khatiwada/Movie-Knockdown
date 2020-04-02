@@ -126,7 +126,7 @@ body {
 .box-office {
   text-align: right;
   padding: 10px;
-  height: 7rem;
+  /* height: 5rem; */
   margin: 0.5rem;
   background-color: #f76a8c;
   color: black;
