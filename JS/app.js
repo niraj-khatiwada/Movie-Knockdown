@@ -1,7 +1,8 @@
 class Movie {
-  constructor(movie0Input, movie1Input, callbacks) {
+  constructor(movie0Input, movie1Input, key, callbacks) {
     this.movie0Input = movie0Input
     this.movie1Input = movie1Input
+    this.key = key
 
     if (callbacks) {
       this.callbacks = callbacks
@@ -61,7 +62,7 @@ class Movie {
     return await axios
       .get('http://www.omdbapi.com/', {
         params: {
-          apikey: 'df784551',
+          apikey: this.key,
           s: skey,
         },
       })
@@ -90,7 +91,7 @@ class Movie {
       await axios
         .get('http://www.omdbapi.com/', {
           params: {
-            apikey: 'df784551',
+            apikey: this.key,
             i: imdbID,
           },
         })

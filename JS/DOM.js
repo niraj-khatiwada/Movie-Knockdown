@@ -3,7 +3,7 @@ const movie1input = document.querySelector('#movie1')
 
 const dropdownItem = document.querySelectorAll('.dropdown')
 
-const movieObj = new Movie(movie0input, movie1input, {
+const movieObj = new Movie(movie0input, movie1input, key, {
   addHTML(movie, inputNum) {
     if (movie.Poster === 'N/A') {
       movie.Poster = '/Image/no-poster-available.jpg'
