@@ -58,7 +58,7 @@ class Movie {
       skey = this.movie1Input.value
     }
     return await axios
-      .get('http://www.omdbapi.com/', {
+      .get('https://www.omdbapi.com/', {
         params: {
           apikey: this.API_KEY,
           s: skey,
