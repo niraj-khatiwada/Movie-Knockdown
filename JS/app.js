@@ -1,3 +1,4 @@
+require('dotenv').config()
 class Movie {
   constructor(movie0Input, movie1Input, callbacks) {
     this.movie0Input = movie0Input
@@ -86,11 +87,10 @@ class Movie {
   }
   getmovieDetails = async (imdbID) => {
     if (imdbID) {
-      const { API_KEY } = process.env
       await axios
         .get('http://www.omdbapi.com/', {
           params: {
-            apikey: API_KEY,
+            apikey: process.env.API_KEY,
             i: imdbID,
           },
         })
