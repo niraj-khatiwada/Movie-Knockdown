@@ -1,9 +1,7 @@
 class Movie {
-  constructor(movie0Input, movie1Input, key, callbacks) {
+  constructor(movie0Input, movie1Input, callbacks) {
     this.movie0Input = movie0Input
     this.movie1Input = movie1Input
-    this.key = key
-
     if (callbacks) {
       this.callbacks = callbacks
     }
@@ -62,7 +60,7 @@ class Movie {
     return await axios
       .get('http://www.omdbapi.com/', {
         params: {
-          apikey: this.key,
+          apikey: this.API_KEY,
           s: skey,
         },
       })
@@ -88,10 +86,11 @@ class Movie {
   }
   getmovieDetails = async (imdbID) => {
     if (imdbID) {
+      const { API_KEY } = process.env
       await axios
         .get('http://www.omdbapi.com/', {
           params: {
-            apikey: this.key,
+            apikey: API_KEY,
             i: imdbID,
           },
         })

@@ -1,0 +1,22 @@
+{
+  "name": "movie-knockdown",
+  "version": "1.0.0",
+  "description": "Compares two movies against their Box Office collection, Awards & nominations, Metascore, IMDB score and IMDB votes side by side and \r display which one is winning.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niraj-khatiwada/Movie-Knockdown.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niraj-khatiwada/Movie-Knockdown/issues"
+  },
+  "homepage": "https://github.com/niraj-khatiwada/Movie-Knockdown#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
